@@ -3,3 +3,9 @@ uvicorn[standard]
 deepface
 mtcnn
 Pillow
+# deep learning frameworks
+tensorflow>=2.16,<2.20
+tf-keras
+
+# face analysis & image processing
+opencv-python-headless

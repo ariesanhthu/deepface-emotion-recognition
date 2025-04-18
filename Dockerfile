@@ -12,7 +12,9 @@ RUN apt-get update && \
 # 2) Upgrade pip và cài headless OpenCV
 RUN pip install --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir opencv-python-headless
-
+RUN pip install --no-cache-dir \
+    "tensorflow>=2.16,<2.20" \
+    tf-keras
 # 3) Cài DeepFace, MTCNN, Pillow
 RUN pip install --no-cache-dir deepface mtcnn Pillow
 
