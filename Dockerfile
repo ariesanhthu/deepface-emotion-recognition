@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 WORKDIR /app
 
-# 1) Cài thư viện hệ thống cho OpenCV
+# 1) Cài hệ thống cho OpenCV
 RUN apt-get update && \
     apt-get install -y \
       libgl1-mesa-glx \
@@ -9,16 +9,14 @@ RUN apt-get update && \
       libsm6 libxext6 libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# 2) Upgrade pip và cài dependencies Python
+# 2) Upgrade pip và cài headless OpenCV
 RUN pip install --upgrade pip setuptools wheel
-
-# 3) Cài opencv-headless thay opencv-python (nếu không cần GUI)
 RUN pip install --no-cache-dir opencv-python-headless
 
-# 4) Cài DeepFace, MTCNN, Pillow
+# 3) Cài DeepFace, MTCNN, Pillow
 RUN pip install --no-cache-dir deepface mtcnn Pillow
 
-# 5) Copy code và chạy app
+# 4) Copy code và chạy app
 COPY app.py requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
