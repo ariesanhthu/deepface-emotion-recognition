@@ -1,23 +1,26 @@
 FROM python:3.9-slim
-
 WORKDIR /app
 
-# Install system dependencies for MTCNN (TensorFlow runtime)
+# 1) Cài thư viện hệ thống cho OpenCV
 RUN apt-get update && \
-    apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev && \
+    apt-get install -y \
+      libgl1-mesa-glx \
+      libglib2.0-0 \
+      libsm6 libxext6 libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and install Python dependencies
+# 2) Upgrade pip và cài dependencies Python
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install --no-cache-dir \
-    fastapi uvicorn[standard] \
-    deepface mtcnn Pillow
 
-# Copy application files
+# 3) Cài opencv-headless thay opencv-python (nếu không cần GUI)
+RUN pip install --no-cache-dir opencv-python-headless
+
+# 4) Cài DeepFace, MTCNN, Pillow
+RUN pip install --no-cache-dir deepface mtcnn Pillow
+
+# 5) Copy code và chạy app
 COPY app.py requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port for Hugging Face Spaces
 EXPOSE 7860
-
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
