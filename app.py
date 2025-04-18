@@ -19,10 +19,10 @@ async def analyze_image(file: UploadFile = File(...)):
         with open(temp_path, "wb") as buffer:
             buffer.write(await file.read())
 
-        # Perform analysis
+        # Perform analysis using MTCNN detector backend
         analysis = DeepFace.analyze(
             img_path=temp_path,
-            detector_backend='dlib',
+            detector_backend='mtcnn',  # switched from 'dlib' to 'mtcnn'
             align=True,
             actions=['emotion']
         )
