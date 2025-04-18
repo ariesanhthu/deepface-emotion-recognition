@@ -1,9 +1,5 @@
 FROM python:3.9-slim
 
-# --- 1) Tạo user không phải root theo Guidelines của Spaces
-RUN useradd -m -u 1000 user
-USER user
-
 # --- 2) Thiết lập HOME và WORKDIR
 ENV HOME=/home/user
 WORKDIR $HOME/app
@@ -17,6 +13,10 @@ ENV TRANSFORMERS_CACHE=$HF_HOME/transformers
 RUN apt-get update && \
     apt-get install -y libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
+
+# --- 1) Tạo user không phải root theo Guidelines của Spaces (lệnh người dùng để dưới apt)
+RUN useradd -m -u 1000 user
+USER user
 
 # --- 5) Tạo thư mục lưu weights và cache
 RUN mkdir -p $HOME/.deepface $HF_HOME/transformers
