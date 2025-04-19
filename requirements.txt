@@ -2,14 +2,15 @@ fastapi
 uvicorn[standard]
 
 # Deep learning frameworks
-tensorflow>=2.16,<2.20        # Core ML framework                                  :contentReference[oaicite:0]{index=0}
-tf-keras                       # Legacy Keras 2 cho TF ≥2.16                        :contentReference[oaicite:1]{index=1}
+tensorflow>=2.16,<2.20                                     
+tf-keras                                             
+
 
 # Face detection backends
-retinaface                     # RetinaFace detector                                :contentReference[oaicite:2]{index=2}
-mtcnn                          # MTCNN detector (nếu bạn muốn dùng song song)       :contentReference[oaicite:3]{index=3}
+retina-face==0.0.17
+mtcnn                                 
 
 # Face analysis & image processing
-deepface                       # DeepFace tổng hợp                                  :contentReference[oaicite:4]{index=4}
+deepface                                                   
 Pillow
-opencv-python-headless         # cv2 không GUI, tránh thiếu libGL                   :contentReference[oaicite:6]{index=6}
+opencv-python-headless        
